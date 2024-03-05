@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0;
+}
+
+nav {
+    height: 70px;
+    background-color: #73a499;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    list-style: none;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*
+    hogy horizontálisan és vertikálisan is középen legyenek ezek, de ezt még ugy is meg lehetett volna oldani,
+    hogy adunk neki egy ugyanakkora line-height-ot, mint a height, tehát 70px-t
+    */
+}
+
+nav li:hover {
+    background-color: #a9f4e3;/*ha felé megyünk, akkor megváltozik az li-nek a színe*/
+}
+
+nav li:hover a {
+    color:black; /*ha felé megyünk az li-nek, akkor az a-nak(szövegnek) megváltozik a színe, tehát a foods-nak vagy a cart-nak */
+}
+
+nav a {
+    color: white;
+    padding: 15px; /*hogy eltávolodjanak egymástól*/
+    text-decoration: none; /*ha le akarjuk szedni róla az aláhúzásokat*/
+}
+/*
+A felhasználónak azt kéne tudnia, hogy melyik menüponton van 
+ehhez csináljuk a selected-menu class-t 
+*/
+.selected-menu {
+    background-color: #8fccbe;
+}
+
+
+.container {
+    max-width: 1080px;
+    margin: auto;
+    padding: 15px;
+}
+
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(autofill, minmax(200px, 1fr));
+    /*
+    !!!!!!!!!!!
+    ha az autofill-t használjuk, akkor fontos, hogy úgy írjuk be, hogy elöbb a min, tehát az itt 200px lesz és utána az 1fr-t 
+    Tehát itt a repeat autofull annyit fog tenni, hogy ameddig egy rész 200px széles tud lenni addig, annyivel tölti fel, de viszont, 
+    hogyha már nem férnének ki, úgy, hogy mindegyik 200px legyen, akkor levesz eggyett és ugyanugy ha húzzuk be, akkor megint ha nem 
+    férnének ki akkor levesz eggyett és így tovább, ameddig olyan kicsi lesz a képernyő, hogy csak egy fog kiférni
+    */
+    grid-gap: 15px;
+}
+
+.recipe {
+    background-color: #a9f4e3;
+    border: 1px solid #8fccbe;
+    text-align: center;
+    padding: 10px;
+    /*
+    a recipe-t megadjuk az összes elemünknek a map-ban és akkor minden egyes elem kap egy background-color-t, border-t padding-et és a 
+    text-align: center; miatt pedig a dolgok amik benne lesznek, azok horizontálisan középen lesznek 
+    */
+}
+/*
+most beleraktunk egy képet ebbe a recipe div-be, amit elöbb formáztunk
+fontos, hogy a recipe-img belüli img formázzuk és azért raktuk bele egy div-be, hogy tudjuk, hogy melyik img-ről van szó!!!!!!!!!!!!!
+*/
+.recipe-img img {
+    width: 100%; /*hogy töltse ki a kép a 100% szélességben, annak a div-ben, amiben benne van*/
+    height: 250px; /*egy bizonyos height-ot itt meg kell adnunk, hogy mekkora legyen a magassága pl. 250px*/
+    object-fit: cover;
+    /*
+    fontos az object-fit: cover, mert ez azt csinálja, hogy teljesen kitölti azt a részt amit ki kell töltenie -> 
+    The content (image or video) is resized to cover the entire container. The aspect ratio is maintained, 
+    and any overflowing content is clipped, ensuring that the entire container is filled
+    és akkor azért nem tölti ki az egész részt, mert a .recipe-nél ugye megadtunk egy padding-et, szóval így nem a teljes container-ét tölti ki 
+    */
+}  
+/*
+A kép alatt szeretnénk, hogy legyenek majd gombok pl. kosárba, meg egy mennyiség, hogy mennyit szeretnénk kosárba rakni 
+ehhez csináltunk egy className="recipe-controls" div-et, amiegy kétosztható grid lesz
+*/
+.recipe-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
+}
+/*
+ebbe a recipe-controls div-be tettünk még két div-et, amibe beletettük a fontAwesome-iconunkat és mindkettő div-nek adtunk egy 
+className="icon"-t, amit most itt fogunk formázni
+*/
+.icon {
+    font-size: 22px;/*ezzel, beállítjuk, hogy mekkorák legyenek az ikonjaink*/
+    cursor: pointer;
+    color: #ff9d00;
+}
+/*
+Beleraktuk egy className="title" div-be, ahol kiírjuk az ételek nevét <h4>{r.name}</h4>, hogy jobban kiférjen és ne menjen át 
+két sorba, majd kap egy magasságot és hogy középen legyen benne a szöveg (<h4>{r.name}</h4> )kap egy display: flex-et és 
+align-items: center, justify-content: center 
+*/
+.title {
+    height: 55px; 
+    display: flex;
+    justify-content: center;
+    align-items: center; /*és nem text-align: center mint, ahogy szoktuk a display: block-nál*/
+    /*
+    és akkor, ami alatta van kép az recipe-img img, az mindenhol ugyanott helyezkedik el, nincsen lejjebb illetve feljebb csúszva
+    */
+}
+/*
+a másik oldalunkon megjelenítjük az egyes termékeket id alapján RecipeP.js 
+*/
+.recipe-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.recipe-page-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.box {
+    background-color: #a9f4e3;
+    border: 1px solid #8fccbe;
+    margin-left: -1px;
+}
+
+.link-icon {
+    font-size: 22px;
+    color: #73a499;
+    margin: 5px;
+}
+
+.recipe-data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;/*két egyenlő részre osztjuk*/
+    grid-gap: 15px;
+}
+.white-box {
+    background-color: white;
+    padding: 5px;
+}
+/*
+Csinálunk különböző padding-eket és mondjuk a p-large-ot, megadjuk a box-unknak 
+és akkor nagy box-ban bennelávő white-box nem fog kiérni teljesen a box széléig hanem egy kicsit beljebb, mert annak megadtunk egy .p-large-ot 
+*/
+.p-large {
+    padding: 15px;
+}
+.p-medium {
+    padding: 10px;
+}
+.p-small {
+    padding: 5px;
+}
+
+.recipe-list {
+    list-style: none;
+}
+
+.border-rad-sm {
+    border-radius: 5px;
+}
+
+.border-rad-md {
+    border-radius: 10px;
+}
+/*
+és akkor a recipe-page-grid-nél kap egy mediumot, hogy azok amik nagyobbak nagyobb radius-t kapjanak és 
+ahol mondjuk ilyen kisebb van pl. white-box, ott meg kap egy sm-et
+*/
+.sm-input {
+    padding: 3px;
+    width: 40px; /*kb. így fér ki a szám, ami benne van*/
+}
+
+.plus-icon {
+    color: #229c22;
+    cursor: pointer;
+}
+
+.minus-icon {
+    color:#c00000;
+    cursor:pointer;
+}
+
+.cart-table {
+    border: 1px solid #d0d0d0;
+    text-align: center;
+    border-collapse: collapse;
+    /*mert most ennek is van egy border-je, meg a td, th-knak is van egy border-je ezért duplikálodnak, collapse-vel pedig nem*/
+    width: 100%;/*hogy szélesebb legyen*/
+}
+
+.cart-table td, .cart-table th {
+    border: 1px solid #d0d0d0;
+    padding: 5px;
+}
+/*
+Azt is meg lehet csinálni, hogy a thead az legyen valamilyen más színű 
+*/
+.cart-table thead {
+    background-color: #e28b00;
+    color:white;
+}
+/*minden második sor a tbody belüli tr-nak más háttérszínt fog kapni */
+.cart-table tbody tr:nth-child(2n) {
+    background-color: #3a3a3a;
+}
